@@ -1,0 +1,45 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  products    Product[]
+  
+  @@map("categories")
+}
+
+model Company {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  email       String    @unique
+  address     String?
+  products    Product[]
+  
+  @@map("companies")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  stock       Int      @default(0)
+  companyId   Int      @map("company_id")
+  categoryId  Int      @map("category_id")
+  
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id])
+  
+  @@map("products")
+}
