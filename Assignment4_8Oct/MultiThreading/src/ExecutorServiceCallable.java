@@ -9,9 +9,9 @@ public class ExecutorServiceCallable {
                 ExecutorService executor = Executors.newFixedThreadPool(2);
 
 
-                String file1 = "/Users/shravakjain/Desktop/Innogent/file1.txt";
-                String file2 = "/Users/shravakjain/Desktop/Innogent/file2.txt";
-                String file3 = "/Users/shravakjain/Desktop/Innogent/file3.txt";
+                String file1 = "/Users/shravakjain/Documents/foldersss/Assignment4_8Oct/MultiThreading/file1.txt";
+                String file2 = "/Users/shravakjain/Documents/foldersss/Assignment4_8Oct/MultiThreading/file2.txt";
+                String file3 = "/Users/shravakjain/Documents/foldersss/Assignment4_8Oct/MultiThreading/file3.txt";
 
                 Callable<Integer> countLinesTask1 = () -> countLines(file1);
                 Callable<Integer> countLinesTask2 = () -> countLines(file2);
