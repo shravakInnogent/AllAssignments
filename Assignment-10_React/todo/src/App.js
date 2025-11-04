@@ -4,17 +4,11 @@ import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem('todos') || [])
+  );
   const [editingId, setEditingId] = useState(null); 
   const [editText, setEditText] = useState('');
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (savedTodos) {
-      setTodos((savedTodos));
-    }
-  }, []);
 
   // Save to localStorage whenever todos change
   useEffect(() => {
