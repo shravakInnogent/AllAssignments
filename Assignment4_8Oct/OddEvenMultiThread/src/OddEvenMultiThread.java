@@ -12,7 +12,7 @@ class OddEvenPrint {
     }
     int value = 1;
     void printOdd() throws InterruptedException{
-        while(value < n){
+        while(value <= n){
             try {
                 synchronized (this) {
                     if (value % 2 != 0) {
@@ -50,9 +50,18 @@ class OddEvenPrint {
 class OddEvenMultiThread{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of odd even to print");
-
-        int n = sc.nextInt();
+        int n =0 ;
+        while(true) {
+            try {
+                System.out.println("Enter number of odd even to print");
+                n = sc.nextInt();
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input. Enter only Integer");
+                sc.nextLine();
+            }
+        }
         OddEvenPrint obj = new OddEvenPrint("Even Thread", n);
         Thread t1 =new Thread(new Runnable() {
             @Override
