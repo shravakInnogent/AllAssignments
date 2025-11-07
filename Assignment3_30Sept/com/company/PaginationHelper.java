@@ -1,6 +1,7 @@
 package com.company;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaginationHelper {
 
@@ -8,7 +9,6 @@ public class PaginationHelper {
     public static List<Student> getPage(List<Student> allStudents, int pageNumber, int pageSize) {
         List<Student> pageData = new ArrayList<>();
 
-        // Check if list is empty
         if (allStudents == null || allStudents.isEmpty()) {
             return pageData;
         }

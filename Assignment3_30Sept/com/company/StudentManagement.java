@@ -1,6 +1,8 @@
 package com.company;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class StudentManagement {
@@ -13,20 +15,16 @@ public class StudentManagement {
         List<Address> addresses = new ArrayList<>();
         List<Class> classes = new ArrayList<>();
 
-        // Initialize with sample data
         initializeSampleData(students, addresses, classes);
 
-        // Assign ranks to all students
         assignRanks(students);
 
-        // Initialize file operations
         FileOperation fileOp = new FileOperation();
         fileOp.fileCreation();
         fileOp.rankersFileCreation();
         fileOp.writeFile(students, addresses, classes);
         fileOp.writeInRankFile(students);
 
-        // Start interactive menu
         try (Scanner sc = new Scanner(System.in)) {
             runInteractiveMenu(sc, students, addresses, classes, fileOp);
         } catch (Exception e) {
@@ -35,7 +33,6 @@ public class StudentManagement {
     }
 
     private static void assignRanks(List<Student> students) {
-        // Sort by marks (highest first)
         PaginationHelper.sortByMarks(students);
 
         int rank = 1;
@@ -236,7 +233,6 @@ public class StudentManagement {
         }
     }
 
-    // NEW: Find students by pincode with optional filters
     private static void findByPincodeWithFilters(Scanner sc, List<Student> students,
                                                  List<Address> addresses, List<Class> classes) {
         System.out.println("\n-------------FIND BY PINCODE -------------");
@@ -246,7 +242,6 @@ public class StudentManagement {
         FilterCriteria criteria = new FilterCriteria();
         criteria.setPincode(pincode);
 
-        // Ask for optional filters
         System.out.println("\nApply additional filters? (y/n):");
         String applyFilters = sc.nextLine().trim();
 
@@ -258,7 +253,6 @@ public class StudentManagement {
         displaySearchResults(results, addresses, classes);
     }
 
-    // NEW: Find students by city with optional filters
     private static void findByCityWithFilters(Scanner sc, List<Student> students,
                                               List<Address> addresses, List<Class> classes) {
         System.out.println("\n----------------- FIND BY CITY ---------------");
@@ -268,7 +262,6 @@ public class StudentManagement {
         FilterCriteria criteria = new FilterCriteria();
         criteria.setCity(city);
 
-        // Ask for optional filters
         System.out.println("\nApply additional filters? (y/n):");
         String applyFilters = sc.nextLine().trim();
 
@@ -280,7 +273,6 @@ public class StudentManagement {
         displaySearchResults(results, addresses, classes);
     }
 
-    // NEW: Find students by class with optional filters
     private static void findByClassWithFilters(Scanner sc, List<Student> students,
                                                List<Address> addresses, List<Class> classes) {
         System.out.println("\n-------------------FIND BY CLASS ---------------");
@@ -294,7 +286,7 @@ public class StudentManagement {
 
         String className = InputValidator.getValidClassName(sc, "\nEnter class name:");
 
-        // Find class ID
+
         Integer classId = classes.stream()
                 .filter(c -> c.getCls().equalsIgnoreCase(className))
                 .map(Class::getId)
@@ -309,7 +301,6 @@ public class StudentManagement {
         FilterCriteria criteria = new FilterCriteria();
         criteria.setClassId(classId);
 
-        // Ask for optional filters
         System.out.println("\nApply additional filters? (y/n):");
         String applyFilters = sc.nextLine().trim();
 
@@ -321,7 +312,7 @@ public class StudentManagement {
         displaySearchResults(results, addresses, classes);
     }
 
-    // NEW: Get all passed students with optional filters
+
     private static void getPassedStudents(Scanner sc, List<Student> students,
                                           List<Address> addresses, List<Class> classes) {
         System.out.println("\n-------------PASSED STUDENTS ----------------");
@@ -329,7 +320,6 @@ public class StudentManagement {
         FilterCriteria criteria = new FilterCriteria();
         criteria.setStatus("Passed");
 
-        // Ask for optional filters
         System.out.println("\nApply additional filters? (y/n):");
         String applyFilters = sc.nextLine().trim();
 
@@ -341,7 +331,6 @@ public class StudentManagement {
         displaySearchResults(results, addresses, classes);
     }
 
-    // NEW: Get all failed students with optional filters
     private static void getFailedStudents(Scanner sc, List<Student> students,
                                           List<Address> addresses, List<Class> classes) {
         System.out.println("\n-------------- FAILED STUDENTS --------------");
@@ -361,7 +350,6 @@ public class StudentManagement {
         displaySearchResults(results, addresses, classes);
     }
 
-    // Helper method to apply additional filters
     private static void applyAdditionalFilters(Scanner sc, FilterCriteria criteria,
                                                boolean allowGender, boolean allowAge, boolean allowClass) {
         if (allowGender) {
@@ -397,7 +385,7 @@ public class StudentManagement {
         System.out.println("\n---------------- PAGINATED VIEW --------------");
 
         if (students.isEmpty()) {
-            System.out.println("⚠ No students available.");
+            System.out.println("No students available.");
             return;
         }
 
@@ -415,14 +403,12 @@ public class StudentManagement {
             return;
         }
 
-        // Ask for sorting
         System.out.println("\nSort by? (name/marks/age/rank) [press Enter for default]:");
         String sortBy = sc.nextLine().trim();
         if (!sortBy.isEmpty()) {
             filteredStudents = PaginationHelper.sortStudents(filteredStudents, sortBy);
         }
 
-        // Pagination parameters
         int pageSize = InputValidator.getValidIntInput(sc,
                 "Enter page size (records per page):", 1, 100);
         int totalRecords = filteredStudents.size();
@@ -462,7 +448,6 @@ public class StudentManagement {
         pageData.forEach(System.out::println);
     }
 
-    // Enhanced delete with class cleanup
     private static void deleteStudent(Scanner sc, List<Student> students,
                                       List<Address> addresses, List<Class> classes) {
         if (students.isEmpty()) {

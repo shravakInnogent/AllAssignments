@@ -11,8 +11,8 @@ public class Student implements Serializable {
     private int marks;
     private String gender;
     private int age;
-    private String status;  // NEW: Pass or Fail
-    private int rank;       // NEW: Rank based on marks
+    private String status;  
+    private int rank;       
 
     public Student() {
         this.status = "Not Evaluated";
