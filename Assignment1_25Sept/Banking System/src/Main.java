@@ -85,12 +85,6 @@ class InputValidator {
                     value = sc.nextDouble();
                     sc.nextLine(); // Consume newline
                     
-                    // Check for special values
-                    if (Double.isNaN(value) || Double.isInfinite(value)) {
-                        System.out.println("Invalid number! Please enter a valid amount.");
-                        continue;
-                    }
-                    
                     if (value >= min && value <= max) {
                         return Math.round(value * 100.0) / 100.0; // Round to 2 decimal places
                     } else {
@@ -109,7 +103,6 @@ class InputValidator {
             }
         }
     }
-    
     // Validate name
     public static String getValidName(Scanner sc) throws ValidationException {
         while (true) {

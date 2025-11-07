@@ -1,17 +1,18 @@
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 class Factorial {
 
-    int fact(int n) {
-        if (n == 0 || n == 1) return 1;
-        return n * fact(n - 1);
+    BigInteger fact(int n) {
+        if (n == 0 || n == 1) return BigInteger.ONE;
+        return BigInteger.valueOf(n).multiply(fact(n - 1));
     }
 
-    int factIterator(int n) {
-        int ans = 1;
+    BigInteger factIterator(int n) {
+        BigInteger ans = BigInteger.ONE;
         for (int i = 1; i <= n; i++) {
-            ans *= i;
+            ans = ans.multiply(BigInteger.valueOf(i));
         }
         return ans;
     }
@@ -48,7 +49,7 @@ public class Main {
             }
         }
         Factorial obj = new Factorial();
-        int ans = (choice == 1) ? obj.fact(n) : obj.factIterator(n);
+        BigInteger ans = (choice == 1) ? obj.fact(n) : obj.factIterator(n);
 
         System.out.println("Factorial of " + n + " = " + ans);
     }
