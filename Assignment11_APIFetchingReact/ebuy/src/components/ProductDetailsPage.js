@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import './ProductDetailsPage.css';
 import axios from 'axios';
 
+
 function ProductDetailsPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -15,9 +16,6 @@ function ProductDetailsPage() {
       try {
         setLoading(true);
         const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
-        if (!response.ok) {
-          throw new Error('Product not found');
-        }
         const data =  response.data;
         setProduct(data);
         setError(null);
