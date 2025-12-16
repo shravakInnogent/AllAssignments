@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import './LandingPage.css';
 import axios from 'axios';
+
 function LandingPage() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -16,8 +17,8 @@ function LandingPage() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('https://fakestoreapi.com/products');
-        const data = response.data;
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
 
@@ -121,3 +122,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
+

@@ -19,8 +19,8 @@ function Header() {
         
         <div className="header-icons">
           <div className="icon-item">
-            <span className="icon">🛒</span>
-            <p>Cart</p>
+             <span className="icon">🛒</span>
+             <p>Cart</p>
           </div>
           <div className="icon-item">
             <span className="icon">🔔</span>
